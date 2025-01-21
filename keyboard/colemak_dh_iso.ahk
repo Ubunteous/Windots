@@ -242,11 +242,10 @@ SC018 & SC039::!space ; ditto
 #+Enter::#e ; terminal (powershell or wezterm)
 !+Enter::#e ; ditto
 
-;;;;;;;;;;;;;;
-;;   MISC   ;;
-;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;
+;;   MISFIRE   ;;
+;;;;;;;;;;;;;;;;;
 
-; Anti missfires
 SC038 & SC011::!w ; M-w
 SC038 & SC039::!Space ; M-<SPC>
 SC038 & SC056::!< ; M-<
@@ -259,6 +258,17 @@ SC038 & SC02e::+c ; M-c => replaced close-window by upcase
 ; More Anti missfires alt+<direction> for org
 SC038 & SC14B::!Left
 SC038 & SC14D::!Right
+
+#HotIf WinActive("Explorer")
+; do nothing. Avoid deleting stuff by mistake
+^SC02F::Return
+SC031 & SC02f::Return
+#HotIf
+; SC010::MsgBox "The active window's class is " WinGetClass("A")
+
+;;;;;;;;;;;;;;
+;;   MISC   ;;
+;;;;;;;;;;;;;;
 
 ; Ctrl+Windows+<direction> (send to worspace)
 #^SC14B::^!Left
