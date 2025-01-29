@@ -98,7 +98,7 @@ SC032 & SC018::+y
 
 SC019::!
 
-+SC01B::%
++SC01B::Send(Chr(0x60)),SendInput("u") ; ù
 ;; Only outputs: $
 ;; SC02e & SC01B::^$
 ;; SC032 & SC01B::^$
@@ -167,7 +167,7 @@ SC032 & SC027::+o
 
 SC028::backspace
 
-+SC02B::Send(Chr(0x60)),SendInput("u") ; ù
++SC02B::%
 
 ;;;;;;;;;;
 
