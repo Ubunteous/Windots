@@ -81,14 +81,19 @@ Komorebic(cmd) {
 !+^3::Komorebic("move-to-workspace 2")
 !+^4::Komorebic("move-to-workspace 3")
 
+; #HotIf WinActive("MozillaWindowClass")
+; a::MsgBox "The active window's class is " WinGetTitle("A")
+; #HotIf
+; a::MsgBox "The active window's class is " WinGetTitle("A")
 
 OpenAllApps() {
   Komorebic("focus-workspace 1")
   run "Firefox"
-  sleep 500
+  WinWait "ahk_class MozillaWindowClass", ,10
+  sleep 1000
   Komorebic("focus-workspace 2")
   run "Sourcetree"
-  sleep 5000
+  WinWait "Sourcetree", ,10
   Komorebic("focus-workspace 3")
   run "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv"
 }
