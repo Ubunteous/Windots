@@ -266,6 +266,38 @@ SC031 & SC02f::Return
 #HotIf
 ; SC010::MsgBox "The active window's class is " WinGetClass("A")
 
+;;;;;;;;;;;;;
+;;   VIM   ;;
+;;;;;;;;;;;;;
+
+vim := 0
+
+#HotIf WinGetTitle("A")~="Microsoft Visual Studio$" and not vim
+SC024::
+{
+	if (A_PriorKey = "j" and A_TimeSincePriorHotkey < 200) {
+		; SendInput("BackSpace")
+		global vim := 1
+	}
+	else {
+		; MsgBox("Prior: " A_PriorKey " vs " A_ThisHotkey)
+		SendInput("n")
+	}
+}
+#HotIf
+
+#HotIf WinGetTitle("A")~="Microsoft Visual Studio$" and vim
+SC023::SC14B ; left
+SC024::SC150 ; down
+SC025::SC148 ; up
+SC026::SC14D ; right
+
+SC020::global vim := 0 ; s => oral od 
+SC031::^x ; r => C-x
+SC013::^v ; p => C-v
+SC017::^z ; u => C-z
+#HotIf
+
 ;;;;;;;;;;;;;;
 ;;   MISC   ;;
 ;;;;;;;;;;;;;;
