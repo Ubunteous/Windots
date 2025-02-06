@@ -276,7 +276,7 @@ vim := 0
 SC024::
 {
 	if (A_PriorKey = "j" and A_TimeSincePriorHotkey < 200) {
-		; SendInput("BackSpace")
+		SendInput("{BS}")
 		global vim := 1
 	}
 	else {
