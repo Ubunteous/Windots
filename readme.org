@@ -1,3 +1,8 @@
 #+title: readme
 
-Dot files for Windows
+Dot files for Windows.
+
+If I ever need to replace the window manager by ahk, use:
++ [[https://github.com/pmb6tz/windows-desktop-switcher ][Windows Desktop Switcher]]
++ [[https://github.com/dankrusi/WindowsVirtualDesktopHelper][Windows Virtual Desktop Helper]]
++ [[https://github.com/FuPeiJiang/VD.ahk][VD.ahk]]
