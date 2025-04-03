@@ -8,7 +8,8 @@
 ;; IMPORTS ;;
 ;;;;;;;;;;;;;
 
-#INCLUDE secret\mode_SJ.ahk
+#INCLUDE 'secret\mode_SJ.ahk'
+; #INCLUDE 'mouse.ahk'
 
 ;;;;;;;;;;;;;;;;;
 ;;   COLEMAK   ;;
@@ -104,7 +105,7 @@ SC032 & SC018::+y
 
 SC019::!
 
-+SC01B::Send(Chr(0x60)),SendInput("u") ; ù
++SC01B::Send(Chr(0x60)),SendInput("u") ;  
 ;; Only outputs: $
 ;; SC02e & SC01B::^$
 ;; SC032 & SC01B::^$
@@ -294,7 +295,8 @@ vim := 0
 ; }
 
 ;; enter or leave vim normal mode with n double press or s (insert mode)
-#HotIf WinGetTitle("A") and WinGetTitle("A")~="Microsoft Visual Studio$" and not vim
+;; windows focuses explorer.exe when no window is available
+#HotIf !WinActive("Explorer.exe") and WinGetTitle("A")~="Microsoft Visual Studio$" and not vim
 SC024::
 {
 	if (A_PriorKey = "j" and A_TimeSincePriorHotkey < 200) {
@@ -309,7 +311,7 @@ SC024::
 }
 #HotIf
 
-#HotIf WinGetTitle("A") and WinGetTitle("A")~="Microsoft Visual Studio$" and vim
+#HotIf !WinActive("Explorer.exe") and WinGetTitle("A")~="Microsoft Visual Studio$" and vim
 SC023::SC14B ; left
 ^SC023::^m
 SC024::SC150 ; down
@@ -355,217 +357,3 @@ sc03a::control
 ;+Esc::Run "komorebic stop"
 ;!Esc::Run "komorebic start"
 ; sc029::run("komorebic stop"), Suspend()
-
-;;;;;;;;;;;
-;; MOUSE ;;
-;;;;;;;;;;;
-
-; General
-+WheelUp::^y
-+WheelDown::^z
-
-+XButton2::!Up
-+XButton1::!Down
-
-^Up::PgUp
-^Down::PgDn
-
-#InputLevel 1
-Esc::
-{
-	global tabCount := 1  
-	Send "{Blind}{Esc}"  
-}
-
-Ctrl & XButton2::
-{
-	Send "^k"
-	Sleep "50"
-	Send "^n"
-}
-
-+!^F1::
-{
-	if WinExist("ahk_exe devenv.exe")
-	{
-		if WinActive("ahk_exe devenv.exe")
-			{
-				 Send "{Alt Down}"
-				 Send "{Tab}"
-				 Send "{Alt Up}"
-			}
-		else
-			WinActivate ; Use the window found by WinExist.
-	}
-}
-
-^+x::
-{
-	old_clipboard := A_Clipboard	; Sauvegarde l'intégralité du presse-papiers
-	Send "^x"						; Copie la sélection actuelle
-	Sleep "100"
-	ClipWait
-	selected_text := A_Clipboard	   ; Stocke le texte sélectionné
-	A_Clipboard := old_clipboard	   ; Remet l'ancien contenu
-	Sleep "100"
-	ClipWait
-	Send "^v"						; Colle l'ancien contenu
-	Sleep "100"
-	ClipWait
-	A_Clipboard := selected_text	   ; Remet le texte sélectionné dans le presse-papiers
-	ClipWait
-}
-
-;;;;;;;;;;;;;;;;
-;; MOUSE SIDE ;;
-;;;;;;;;;;;;;;;;
-
-; + 1 => F13 => C-<F3>
-; + 2 => F14 => F3
-; + 3 (free) => F15 => F20
-; + 4 (free) => F16 => Enter
-; + 5 => F17 => F18
-; + 6 (free) => F18 => F21
-; + 7 => F19 => F23
-; + 8 => F20 => S-F12
-; + 9 => F21 => F22
-; + 10 => F22 => F19
-
-F13::^F3
-F14::F3
-; F15::free
-F16::ENTER ;; free
-
-F17::
-{
-	static isActive := false
-		
-	if (!isActive) {
-	Send "^{Tab}"
-
-		isActive := true
-		Send "{Ctrl Down}"
-		SetTimer SendCtrlTabSafely, 400
-	}
-		
-	KeyWait "F17"
-		
-	if (isActive) {
-		SetTimer SendCtrlTabSafely, 0
-		Send "{Ctrl Up}"
-		isActive := false
-	}
-}
-
-SendCtrlTabSafely()
-{
-	if (GetKeyState("F18", "P")) {
-		Send "{Tab}"
-	} else {
-		SetTimer SendCtrlTabSafely, 0
-		Send "{Ctrl Up}"
-	}
-}
-
-global tabCount := 1
-
-!^+F18::
-{
-	Send "{Ctrl down}"
-	global tabCount
-	Loop tabCount
-	{
-		Sleep "20"
-		Send "{Tab}"
-		Sleep "20"
-	}
-	tabCount++	
-	Send "{Ctrl up}"
-}
-
-F20::+F12
-
-F21::
-{
-	static isActive := false
-		
-	if (!isActive) {
-	Send "!{Tab}"
-
-		isActive := true
-		Send "{Alt Down}"
-		SetTimer SendTabSafely, 400
-	}
-		
-	KeyWait "F21"
-		
-	if (isActive) {
-		SetTimer SendTabSafely, 0
-		Send "{Alt Up}"
-		isActive := false
-	}
-}
-
-SendTabSafely()
-{
-	if (GetKeyState("F21", "P")) {
-		Send "{Tab}"
-	} else {
-		SetTimer SendTabSafely, 0
-		Send "{Alt Up}"
-	}
-}
-
-^F21::F5
-
-F22::
-{
-	static isActive := false
-		
-	if (!isActive) {
-	Send "!{Tab}"
-
-		isActive := true
-		Send "{Alt Down}"
-		SetTimer SendTabSafely, 400
-	}
-		
-	KeyWait "F22"
-		
-	if (isActive) {
-		SetTimer SendTabSafely, 0
-		Send "{Alt Up}"
-		isActive := false
-	}
-}
-
-;;;;;;;;;;;;;;;;;
-;; MOUSE FRONT ;;
-;;;;;;;;;;;;;;;;;
-
-F23::F10 ;; free
-
-F24::
-{
-	Click
-	Sleep "50"
-	Send "{F12}"
-}
-^F24::
-{
-	Click
-	Sleep "50"
-	Send "+{F12}"
-}
-
-; +F24::
-; {
-; 	Send "{Blind}{Shift Up}" ; Relache temporairement Shift
-; 	Sleep "50"
-;     Click ; Effectue un clic sans Shift actif
-;     Send "{Blind}{Shift Down}" ; Réactive Shift si nécessaire
-; 	Sleep "50"
-; 	Send "!{F12}"
-; 	KeyWait "Shift"
-;     Send "{Esc}" ; Envoie la touche Échap une fois Shift relâché
-; }
