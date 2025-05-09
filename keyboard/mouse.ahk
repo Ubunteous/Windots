@@ -1,6 +1,10 @@
 #SingleInstance Force
 #Requires AutoHotkey v2.0
 
+; #:win, !:alt, ^:ctrl, +:shift
+
+SC029::Enter
+
 ;;;;;;;;;;;
 ;; MOUSE ;;
 ;;;;;;;;;;;
@@ -98,7 +102,7 @@ F17::
 	static isActive := false
 
 	if (!isActive) {
-	Send "!{Tab}"
+	Send "^{Tab}"
 
 		isActive := true
 		Send "{Ctrl Down}"
@@ -195,6 +199,8 @@ F24::
 	Sleep "50"
 	Send "+{F12}"
 }
+
++F24::Browser_Back
 
 ; +F24::
 ; {

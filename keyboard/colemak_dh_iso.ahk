@@ -105,7 +105,7 @@ SC032 & SC018::+y
 
 SC019::!
 
-+SC01B::Send(Chr(0x60)),SendInput("u") ;  
++SC01B::Send(Chr(0x60)),SendInput("u") ; ù
 ;; Only outputs: $
 ;; SC02e & SC01B::^$
 ;; SC032 & SC01B::^$
@@ -239,6 +239,7 @@ SC02E & SC035:::
 ; SC011 & SC018::LWin ; M-y launcher
 ; SC011 & SC018::!Space ; M-y launcher
 SC011 & SC018::#y ; M-y launcher
+SC011 & SC021::!o ; M-i (remap o) next-ws
 SC011 & SC023::!m ; M-m focus-next
 SC011 & SC024::!n ; M-n prev-ws
 SC011 & SC026::!o ; M-i (remap o) next-ws
