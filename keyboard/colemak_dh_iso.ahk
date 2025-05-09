@@ -280,61 +280,6 @@ SC031 & SC02f::Return
 #HotIf
 ; SC010::MsgBox "The active window's class is " WinGetClass("A")
 
-;;;;;;;;;;;;;
-;;   VIM   ;;
-;;;;;;;;;;;;;
-
-vim := 0
-
-; ;; hopefully prevent error message when no window selected by komorebi
-; checkVS() {
-; isInVS := false
-; 	try {
-; 		isInVS := WinGetTitle("A")~="Microsoft Visual Studio$"
-; 	}
-; 	return isInVS
-; }
-
-;; enter or leave vim normal mode with n double press or s (insert mode)
-;; windows focuses explorer.exe when no window is available
-#HotIf !WinActive("Explorer.exe") and WinGetTitle("A")~="Microsoft Visual Studio$" and not vim
-SC024::
-{
-	if (A_PriorKey = "j" and A_TimeSincePriorHotkey < 200) {
-		SendInput("{BS}")
-		SendInput("{Escape}")
-		global vim := 1
-	}
-	else {
-		; MsgBox("Prior: " A_PriorKey " vs " A_ThisHotkey)
-		SendInput("n")
-	}
-}
-#HotIf
-
-#HotIf !WinActive("Explorer.exe") and WinGetTitle("A")~="Microsoft Visual Studio$" and vim
-SC023::SC14B ; left
-^SC023::^m
-SC024::SC150 ; down
-^SC024::^n
-SC025::SC148 ; up
-^SC025::^e
-SC026::SC14D ; right
-^SC026::^i
-
-; C-l => C-M l
-^SC016::^!l
-SC02F & SC016::^!l
-
-SC020::global vim := 0 ; s => oral od 
-SC031::^x ; r => C-x
-^SC031::k ; r => C-x
-SC013::^v ; p => C-v
-^SC013::p ; p => C-v
-SC017::^z ; u => C-z
-^SC017::u ; u => C-z
-#HotIf
-
 ;;;;;;;;;;;;;;
 ;;   MISC   ;;
 ;;;;;;;;;;;;;;
