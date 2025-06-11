@@ -42,9 +42,15 @@
 		{
 		    "name": "IV",
 		    "layout": "VerticalStack"
+		},
+		{
+			"name": "V",
+			"layout": "VerticalStack"
 		}
-	    ]
-	}
+		{
+			"name": "VI",
+			"layout": "VerticalStack"
+		}]}
     ],
     
     "ignore_rules": [

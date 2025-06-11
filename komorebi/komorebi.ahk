@@ -53,7 +53,7 @@ Komorebic(cmd) {
 !Space::Komorebic("toggle-maximize")
 
 !m::Komorebic("cycle-focus next")
-!u::Komorebic("toggle-maximize"), Komorebic("cycle-focus next"), Komorebic("toggle-maximize")
+; !u::Komorebic("toggle-maximize"), Komorebic("cycle-focus next"), Komorebic("toggle-maximize")
 !+m::Komorebic("cycle-focus previous")
 
 ; M-<dir> ou uni, switch in/to group => cycle-workspace <direction>
@@ -61,8 +61,12 @@ Komorebic(cmd) {
 
 !Left::Komorebic("cycle-workspace previous")
 !Right::Komorebic("cycle-workspace next")
-!n::Komorebic("cycle-workspace previous")
-!o::Komorebic("cycle-workspace next")
+
+!n::Run("wscript ./scripts/ps-run.vbs ./scripts/previous-ws.ps1")
+; Komorebic("cycle-workspace previous")
+!o::Run("wscript ./scripts/ps-run.vbs ./scripts/next-ws.ps1")
+; Komorebic("cycle-workspace next")
+!u::Run("wscript ./scripts/ps-run.vbs ./scripts/switch-ws-trio.ps1")
 
 ^!Left::Komorebic("cycle-move-to-workspace previous")
 ^!Right::Komorebic("cycle-move-to-workspace next")
