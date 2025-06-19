@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.2
 
 #SingleInstance Force
+SetWorkingDir A_ScriptDir
 ; #:win, !:alt, ^:ctrl, +:shift
 
 ; M-y rofi => !y::Send {LWin} (alt+y)
@@ -95,11 +96,14 @@ OpenAllApps() {
   run "Firefox"
   WinWait "ahk_class MozillaWindowClass", ,10
   sleep 1000
+
   Komorebic("focus-workspace 2")
-  run "Sourcetree"
-  WinWait "Sourcetree", ,10
-  Komorebic("focus-workspace 3")
   run "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv"
+  sleep 1000
+
+  ; Komorebic("focus-workspace 6")
+  ; run "Sourcetree"
+  ; WinWait "Sourcetree", ,10
 }
 
 
