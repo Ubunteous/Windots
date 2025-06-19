@@ -260,6 +260,10 @@ SC018 & SC039::!space ; ditto
 ;;   MISFIRE   ;;
 ;;;;;;;;;;;;;;;;;
 
+;; system kill ring
+!SC030::#v
+#SC030::#v
+
 SC038 & SC011::!w ; M-w
 SC038 & SC039::!Space ; M-<SPC>
 SC038 & SC056::!< ; M-<
