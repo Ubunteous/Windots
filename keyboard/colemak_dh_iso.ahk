@@ -261,7 +261,7 @@ SC018 & SC039::!space ; ditto
 ;;;;;;;;;;;;;;;;;
 
 ;; system kill ring
-!SC030::#v
+; !SC030::#v
 #SC030::#v
 
 SC038 & SC011::!w ; M-w
@@ -301,6 +301,7 @@ SC038::LWin
 
 ; set CapsLock to Control key
 sc03a::control
+sc053::Suspend
 
 ; Quit
 ;^Esc::Suspend
